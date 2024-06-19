@@ -4,20 +4,59 @@
         <meta charset="utf-8">
         <title>My Spotify Profile</title>
         <script src="src/script.js" type="module"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </head>
-    <body>
-      <h1>Display your Spotify profile data</h1>
+<body>
 
-      <section id="profile">
-      <h2>Logged in as <span id="displayName"></span></h2>
-      <span id="avatar"></span>
-      <ul>
-          <li>User ID: <span id="id"></span></li>
-          <li>Email: <span id="email"></span></li>
-          <li>Spotify URI: <a id="uri" href="#"></a></li>
-          <li>Link: <a id="url" href="#"></a></li>
-          <li>Profile Image: <span id="imgUrl"></span></li>
-      </ul>
-      </section>
-    </body>
+    <h2 class="mb-4 text-4xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Spotify Analytics Dashboard</h2>
+
+<!-- profile information -->
+<section id="profile">
+<h2 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white"><span id="displayName"></span>'s Profile</h2>
+<span id="avatar"></span>
+<ul>
+    <li>User ID: <span id="id"></span></li>
+    <li>Email: <span id="email"></span></li>
+    <li>Spotify URI: <a id="uri" href="#"></a></li>
+    <li>Link: <a id="url" href="#"></a></li>
+    <li>Profile Image: <span id="imgUrl"></span></li>
+</ul>
+</section>
+
+<section>
+    <div class="chart-container" style="position: relative; height:60vh; width:80vw">
+        <canvas id="bar-chart"></canvas>
+    </div>
+    <div class="chart-container" style="position: relative; height:60vh; width:60vw">
+        <canvas id="pie-chart"></canvas>
+    </div>
+    
+</section>
+
+<!-- display user's top tracks -->
+<section id="tracks">
+    <h2 class="mb-4 lg:ml-10 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Your Top Tracks</h2>
+    <div class="flex overflow-x-scroll pb-10 hide-scroll-bar">
+        <div id="tracks-list"  class="flex flex-nowrap lg:ml-5 md:ml-5 ml-5"></div>
+    </div>
+</section>
+
+<!-- display user's top artists -->
+<section id="artists">
+    <h2 class="mb-4 lg:ml-10 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Your Top Artists</h2>
+    <div class="flex overflow-x-scroll pb-10 hide-scroll-bar">
+        <div id="artists-list"  class="flex flex-nowrap lg:ml-5 md:ml-5 ml-5"></div>
+    </div>
+</section>
+
+<!-- display user's liked songs -->
+<section id="liked">
+    <h2 class="mb-4 lg:ml-10 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Your Recently Liked Songs</h2>
+    <div class="flex overflow-x-scroll pb-10 hide-scroll-bar">
+        <div id="liked-list"  class="flex flex-nowrap lg:ml-5 md:ml-5 ml-5"></div>
+    </div>
+</section>
+
+</body>
 </html>
