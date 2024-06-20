@@ -13,19 +13,19 @@
 
 <!-- profile information -->
 <section id="profile">
-<h2 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white"><span id="displayName"></span>'s Profile</h2>
-<span id="avatar"></span>
-<ul>
-    <li>User ID: <span id="id"></span></li>
-    <li>Email: <span id="email"></span></li>
-    <li>Spotify URI: <a id="uri" href="#"></a></li>
-    <li>Link: <a id="url" href="#"></a></li>
-    <li>Profile Image: <span id="imgUrl"></span></li>
-</ul>
+  <div id="profile-box"></div>
 </section>
 
-<section>
-    <div class="chart-container" style="position: relative; height:60vh; width:80vw">
+<!-- display user's top artists -->
+<section id="artists">
+  <h2 class="mb-4 lg:ml-10 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Your Top Artists</h2>
+  <div class="flex overflow-x-scroll pb-10 hide-scroll-bar">
+      <div id="artists-list"  class="flex flex-nowrap lg:ml-5 md:ml-5 ml-5"></div>
+  </div>
+</section>
+
+<section id="graphs">
+    <div class="chart-container justify-center" style="position: relative; height:60vh; width:80vw;">
         <canvas id="bar-chart"></canvas>
     </div>
     <div class="chart-container" style="position: relative; height:60vh; width:60vw">
@@ -39,14 +39,6 @@
     <h2 class="mb-4 lg:ml-10 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Your Top Tracks</h2>
     <div class="flex overflow-x-scroll pb-10 hide-scroll-bar">
         <div id="tracks-list"  class="flex flex-nowrap lg:ml-5 md:ml-5 ml-5"></div>
-    </div>
-</section>
-
-<!-- display user's top artists -->
-<section id="artists">
-    <h2 class="mb-4 lg:ml-10 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Your Top Artists</h2>
-    <div class="flex overflow-x-scroll pb-10 hide-scroll-bar">
-        <div id="artists-list"  class="flex flex-nowrap lg:ml-5 md:ml-5 ml-5"></div>
     </div>
 </section>
 

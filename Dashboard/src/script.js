@@ -109,36 +109,35 @@ async function fetchTopArtists(token){
     return await result.json();
 }
 
-let trackNames = [];
-let tracksPop = [];
-
 function populateUI(profile, tracks, artists, liked) {
-    document.getElementById("displayName").innerText = profile.display_name;
     if (profile.images[0]) {
-        const profileImage = new Image(200, 200);
-        profileImage.src = profile.images[0].url;
-        document.getElementById("avatar").appendChild(profileImage);
-        document.getElementById("imgUrl").innerText = profile.images[0].url;
+        const img = document.createElement('img');
+        img.className = "rounded-full";
+        img.src = profile.images[0].url;
+        document.getElementById("profile-box").appendChild(img);
     }
-    document.getElementById("id").innerText = profile.id;
-    document.getElementById("email").innerText = profile.email;
-    document.getElementById("uri").innerText = profile.uri;
-    document.getElementById("uri").setAttribute("href", profile.external_urls.spotify);
-    document.getElementById("url").innerText = profile.href;
-    document.getElementById("url").setAttribute("href", profile.href);
+    var profile_text = document.createElement("div");
+
+    var name = document.createElement("a");
+    name.innerText = profile.display_name;
+    name.href = profile.external_urls.spotify;
+    profile_text.appendChild(name);
+
+    var email = document.createElement("p");
+    email.innerText = profile.email;
+    profile_text.appendChild(email);
+
+    document.getElementById("profile-box").appendChild(profile_text);
 
     // loops through all returned top tracks and creates and adds the name of the song to the list
     for( let item of tracks.items){
         createCard(item.album.images[0].url, item.name, "tracks")
-        //trackNames.push(item.name)
-        //tracksPop.push(item.popularity)
     }
 
     // loops through all returned top artists and creates and adds the name of the artist to the list
     let artist_graph = []
     let artist_pop_graph = []
     for( let item of artists.items){
-        //console.log(item.name);
         createCard(item.images[0].url, item.name, "artists")
         artist_graph.push(item.name)
         artist_pop_graph.push(item.popularity)
@@ -146,7 +145,6 @@ function populateUI(profile, tracks, artists, liked) {
 
     // loops through all returned liked songs and creates and adds the name of the song to the list
     for( let item of liked.items){
-        //console.log(item.name);
         createCard(item.track.album.images[0].url, item.track.name, "liked")
     }
 
@@ -197,7 +195,7 @@ function createCard(image, title, type) { // add artist, link
 
     // creating card box
     const card = document.createElement('div');
-    card.className = "w-64 max-w-sm bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-shadow duration-300 ease-in-out";
+    card.className = "w-64 max-w-xs bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-shadow duration-300 ease-in-out";
 
     // adding image to card box
     const img = document.createElement('img');
@@ -212,7 +210,7 @@ function createCard(image, title, type) { // add artist, link
     // ading title to content div
     const trackName = document.createElement('h5');
     trackName.innerHTML = title;
-    trackName.className = "mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white";
+    trackName.className = "mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white";
     div1.appendChild(trackName);
 
     // adding artist name to content div
