@@ -18,21 +18,21 @@
           </section>
     </div>
 
+    <section id="graphs">
+        <div class="chart-container flex justify-center mx-0" style="position: relative; height:60vh; width:80vw;">
+            <canvas id="bar-chart"></canvas>
+        </div>
+        <div class="chart-container" style="position: relative; height:60vh; width:60vw">
+            <canvas id="pie-chart"></canvas>
+        </div>  
+    </section>
+
     <!-- display user's top artists -->
     <section id="artists">
         <h2 class="mb-4 lg:ml-10 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Your Top Artists</h2>
         <div class="flex overflow-x-scroll pb-10 hide-scroll-bar">
             <div id="artists-list"  class="flex flex-nowrap lg:ml-5 md:ml-5 ml-5"></div>
         </div>
-    </section>
-
-    <section id="graphs">
-        <div class="chart-container flex justify-center" style="position: relative; height:60vh; width:80vw;">
-            <canvas id="bar-chart"></canvas>
-        </div>
-        <div class="chart-container" style="position: relative; height:60vh; width:60vw">
-            <canvas id="pie-chart"></canvas>
-        </div>  
     </section>
 
     <!-- display user's top tracks -->

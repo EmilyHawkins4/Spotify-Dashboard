@@ -132,18 +132,20 @@ function populateUI(profile, tracks, artists, liked) {
 
     // loops through all returned top tracks and creates and adds the name of the song to the list
     for( let item of tracks.items){
-        createCard(item.album.images[0].url, item.name, "tracks")
+        createCard(item.album.images[0].url, item.name, "tracks");
     }
 
     // loops through all returned top artists and creates and adds the name of the artist to the list
-    let artist_graph = []
-    let artist_pop_graph = []
+    let artist_graph = [];
+    let genres = [];
+    let artist_pop_graph = [];
     for( let item of artists.items){
-        createCard(item.images[0].url, item.name, "artists")
-        artist_graph.push(item.name)
-        artist_pop_graph.push(item.popularity)
+        createCard(item.images[0].url, item.name, "artists");
+        artist_graph.push(item.name);
+        artist_pop_graph.push(item.popularity);
+        genres = genres.concat(item.genres);
     }
-
+    compileGenres(genres);
     // loops through all returned liked songs and creates and adds the name of the song to the list
     for( let item of liked.items){
         createCard(item.track.album.images[0].url, item.track.name, "liked")
@@ -156,7 +158,7 @@ function populateUI(profile, tracks, artists, liked) {
       data: {
         labels: artist_graph.slice(0, 10),
         datasets: [{
-          label: 'Your Artist Popularity',
+          label: 'Artist Popularity',
           backgroundColor: 'rgba(30, 215, 96, .3)',
           borderColor: 'rgba(30, 215, 96, 1)',
           data: artist_pop_graph.slice(0, 10),
@@ -171,21 +173,8 @@ function populateUI(profile, tracks, artists, liked) {
         }
       }
     });
-  
-    const ctx2 = document.getElementById('pie-chart');
-  
-    new Chart(ctx2, {
-      type: 'pie',
-      data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
-          borderWidth: 1
-        }]
-      },
-      
-    });
+    
+    
 
 }
 
@@ -227,16 +216,52 @@ function createCard(image, title, type) { // add artist, link
 
     return card;
 }
-        // <div class="">
-        //     <img class="rounded-t-lg" src="`+ item.album.images[0].url +`" alt="" />
-        //     <div class="p-5">
-        //         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">`+ item.name +`</h5>
-        //         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"></p>
-        //         <a href="`+item.external_urls.spotify`" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-        //             View Song on Spotify
-        //             <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-        //                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-        //             </svg>
-        //         </a>
-        //     </div>
-        // </div>`
+
+function compileGenres(genres){
+    var genre_counts = [];
+    const visited = new Array(genres.length).fill(0)
+    for(var i=0; i<genres.length; i++){
+        if(visited[i] == 0){
+            var count = 1;
+            for(var j=i+1; j<genres.length; j++){
+                if(genres[i] == genres[j]){
+                    visited[j] = 1;
+                    count++;
+                }
+            }
+            genre_counts.push([genres[i], count])
+        }
+    }
+    genre_counts.sort((a, b) =>b[1]-a[1]);
+    genre_counts = genre_counts.slice(0, 5);
+    console.log(genre_counts)
+    var top_genres = []
+    var top_genre_counts = []
+    for(var i=0; i<genre_counts.length; i++){
+        top_genres.push(genre_counts[i][0]);
+        top_genre_counts.push(genre_counts[i][1]);
+    }
+
+    const ctx2 = document.getElementById('pie-chart');
+  
+    new Chart(ctx2, {
+      type: 'pie',
+      data: {
+        labels: top_genres,
+        datasets: [{
+          label: 'Most Listened to Genres',
+          data: top_genre_counts,
+          backgroundColor: [
+            'rgb(85, 242, 109)',
+            'rgb(75, 255, 43)',
+            'rgb(0, 222, 18)',
+            'rgb(22, 156, 44)',
+            'rgb(2, 107, 46)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      
+    });
+
+}
