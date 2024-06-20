@@ -1,4 +1,4 @@
-
+const clientId = "";
 const params = new URLSearchParams(window.location.search);
 const code = params.get("code");
 
@@ -125,6 +125,7 @@ function populateUI(profile, tracks, artists, liked) {
 
     var email = document.createElement("p");
     email.innerText = profile.email;
+    email.className = 'text-sm text-gray-500 dark:text-gray-400';
     profile_text.appendChild(email);
 
     document.getElementById("profile-box").appendChild(profile_text);
@@ -195,7 +196,7 @@ function createCard(image, title, type) { // add artist, link
 
     // creating card box
     const card = document.createElement('div');
-    card.className = "w-64 max-w-xs bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-shadow duration-300 ease-in-out";
+    card.className = "w-64 max-w-xs bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 overflow-hidden hover:shadow-2xl transition-shadow duration-300 ease-in-out";
 
     // adding image to card box
     const img = document.createElement('img');
