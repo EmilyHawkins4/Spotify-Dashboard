@@ -2,15 +2,17 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>My Spotify Profile</title>
+        <title>Music Analytics Dashboard</title>
         <script src="src/script.js" type="module"></script>
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <link href="style.css" rel="stylesheet">
     </head>
 <body>
 
-    <div class="flex justify-between mb-4 mx-10 mt-5 ">
-        <h2 class="text-7xl font-extrabold tracking-tight text-gray-900 md:text-5xl lg:text-7xl dark:text-white">Spotify Analytics Dashboard</h2>
+    <div id="heading" class="flex justify-between mb-4 mx-20 mt-5 ">
+        <h2 class="text-7xl font-extrabold tracking-tight text-gray-900 md:text-5xl lg:text-7xl dark:text-white">Music Analytics Dashboard</h2>
         
         <!-- profile information -->
         <section id="profile" class="w-1/4 p-2 rounded-md border-green-400 border-2">
@@ -18,38 +20,77 @@
           </section>
     </div>
 
-    <section id="graphs">
-        <div class="chart-container flex justify-center mx-0" style="position: relative; height:60vh; width:80vw;">
-            <canvas id="bar-chart"></canvas>
-        </div>
-        <div class="chart-container" style="position: relative; height:60vh; width:60vw">
-            <canvas id="pie-chart"></canvas>
-        </div>  
-    </section>
+    <div id="content" class="mx-40">
+        <section id="graphs">
+            <div class="flex justify-between mb-5 mt-10" id="top-row-graphs">
+                <div class="chart-container w-3/5">
+                    <p class="text-center font-bold">Artist Popularity Chart</p>
+                    <p class="text-center text-xs text-gray-600 mb-5">Spotify gives each artist a populatiry score based on the amount of users that listen to their music (with a top score of 100). Here are the popularity scores of your top 20 artists.</p>
+                    <canvas id="bar-chart"></canvas>
+                </div>
+                <div class="chart-container w-1/3">
+                    <p class="text-center font-bold">Your Top Genres based on Top Artists</p>
+                    <p class="text-center text-xs text-gray-600 mb-5">We analyzed your top 20 most listened to artists, and used that to calculate your top 5 genres.</p>
+                    <canvas id="genre-pie-chart"></canvas>
+                </div>  
+            </div>
+        </section>
+    
+        <!-- display user's top artists -->
+        <section id="artists">
+            <h2 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Your Top Artists</h2>
+            <div class="flex overflow-x-scroll pb-10 hide-scroll-bar">
+                <div id="artists-list"  class="flex flex-nowrap"></div>
+            </div>
+        </section>
 
-    <!-- display user's top artists -->
-    <section id="artists">
-        <h2 class="mb-4 lg:ml-10 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Your Top Artists</h2>
-        <div class="flex overflow-x-scroll pb-10 hide-scroll-bar">
-            <div id="artists-list"  class="flex flex-nowrap lg:ml-5 md:ml-5 ml-5"></div>
-        </div>
-    </section>
-
-    <!-- display user's top tracks -->
-    <section id="tracks">
-        <h2 class="mb-4 lg:ml-10 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Your Top Tracks</h2>
-        <div class="flex overflow-x-scroll pb-10 hide-scroll-bar">
-            <div id="tracks-list"  class="flex flex-nowrap lg:ml-5 md:ml-5 ml-5"></div>
-        </div>
-    </section>
-
-    <!-- display user's liked songs -->
-    <section id="liked">
-        <h2 class="mb-4 lg:ml-10 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Your Recently Liked Songs</h2>
-        <div class="flex overflow-x-scroll pb-10 hide-scroll-bar">
-            <div id="liked-list"  class="flex flex-nowrap lg:ml-5 md:ml-5 ml-5"></div>
-        </div>
-    </section>
+        <section id="graphs">
+            <div class="flex mb-5 mt-10" id="top-row-graphs">
+                <div class="chart-container w-1/3">
+                    <p class="text-center font-bold">Your Top Artists Based on Top Songs</p>
+                    <p class="text-center text-xs text-gray-600 mb-5">We analyzed your top 20 most listened to songs, and used that to calculate your top 5 artists.</p>
+                    <canvas id="artist-pie-chart"></canvas>
+                </div>  
+                <div class="chart-container w-2/3">
+                    <p class="text-center font-bold">Artist Popularity Chart</p>
+                    <p class="text-center text-xs text-gray-600 mb-5">We analyzed your top 20 most listened to songs, and used that to calculate your top 5 artists.</p>
+                    <canvas id=""></canvas>
+                </div>
+            </div>
+        </section>
+    
+        <!-- display user's top tracks -->
+        <section id="tracks">
+            <h2 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Your Top Tracks</h2>
+            <div class="flex overflow-x-scroll pb-10 hide-scroll-bar">
+                <div id="tracks-list"  class="flex flex-nowrap"></div>
+            </div>
+        </section>
+    
+        <!-- display user's reccomended songs -->
+        <section id="">
+            <h2 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Your Reccomended Songs</h2>
+           <p class="lg:ml-10">Get Reccomended Songs Based on Listening To 
+                <!-- <select id="artist-reccomendations">
+                    <option selected="true" disabled="disabled">Select an Artist</option>
+                </select>
+                <select id="genre-reccomendations">
+                    <option selected="true" disabled="disabled">Select a Genre</option>
+                </select> -->
+            </p>
+            <!-- <div id="checkbox-options">
+                <input type="checkbox" id="artist-checkbox" name="Artist" value="artist-checkbox">
+                <label for="artist-checkbox">Artist</label>
+                <input type="checkbox" id="genre-checkbox" name="Genre" value="genre-checkbox">
+                <label for="genre-checkbox">Genre</label>
+                <input type="checkbox" id="song-checkbox" name="Songs" value="song-checkbox">
+                <label for="song-checkbox">Song</label>
+            </div> -->
+            <div class="flex overflow-x-scroll pb-10 hide-scroll-bar">
+                <div id="reccomendations-list"  class="flex flex-nowrap lg:ml-5 md:ml-5 ml-5"></div>
+            </div>
+        </section>
+    </div>
 
 </body>
 </html>
