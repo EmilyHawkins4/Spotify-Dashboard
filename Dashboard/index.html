@@ -20,12 +20,15 @@
           </section>
     </div>
 
+    <!-- main content of website -->
     <div id="content" class="mx-40">
+
+        <!-- graphs section -->
         <section id="graphs">
             <div class="flex justify-between mb-5 mt-10" id="top-row-graphs">
                 <div class="chart-container w-3/5">
                     <p class="text-center font-bold">Artist Popularity Chart</p>
-                    <p class="text-center text-xs text-gray-600 mb-5">Spotify gives each artist a populatiry score based on the amount of users that listen to their music (with a top score of 100). Here are the popularity scores of your top 20 artists.</p>
+                    <p class="text-center text-xs text-gray-600 mb-5">Wondering if your music is "underground"? Spotify gives each artist a populatiry score based on the amount of users that listen to their music (with 100 being most popular). Here are the popularity scores of your top 10 artists.</p>
                     <canvas id="bar-chart"></canvas>
                 </div>
                 <div class="chart-container w-1/3">
@@ -38,30 +41,33 @@
     
         <!-- display user's top artists -->
         <section id="artists">
-            <h2 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Your Top Artists</h2>
+            <h2 class="mb-2 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Your Top Artists</h2>
+            <p class="text-xs text-gray-600 mb-5">Spotify keeps track of your listening history and artists you listen to most. Here's your top artists from the past 6 months!</p>
             <div class="flex overflow-x-scroll pb-10 hide-scroll-bar">
                 <div id="artists-list"  class="flex flex-nowrap"></div>
             </div>
         </section>
 
+        <!-- more graphs -->
         <section id="graphs">
-            <div class="flex mb-5 mt-10" id="top-row-graphs">
+            <div class="flex justify-between mb-5 mt-10" id="top-row-graphs">
                 <div class="chart-container w-1/3">
                     <p class="text-center font-bold">Your Top Artists Based on Top Songs</p>
                     <p class="text-center text-xs text-gray-600 mb-5">We analyzed your top 20 most listened to songs, and used that to calculate your top 5 artists.</p>
                     <canvas id="artist-pie-chart"></canvas>
                 </div>  
-                <div class="chart-container w-2/3">
-                    <p class="text-center font-bold">Artist Popularity Chart</p>
-                    <p class="text-center text-xs text-gray-600 mb-5">We analyzed your top 20 most listened to songs, and used that to calculate your top 5 artists.</p>
-                    <canvas id=""></canvas>
+                <div class="chart-container w-3/5">
+                    <p class="text-center font-bold">Tracks Popularity Chart</p>
+                    <p class="text-center text-xs text-gray-600 mb-5">Wondering if your music is "underground"? Spotify gives each track a populatiry score based on the amount of users that listen to that song (with 100 being most popular). Here are the popularity scores of your top 5 tracks.</p>
+                    <canvas id="bar-chart2"></canvas>
                 </div>
             </div>
         </section>
     
         <!-- display user's top tracks -->
         <section id="tracks">
-            <h2 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Your Top Tracks</h2>
+            <h2 class="mb-2 text-xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Your Top Tracks</h2>
+            <p class="text-xs text-gray-600 mb-5">Spotify keeps track of your listening history and the tracks you listen to most. Here's your top tracks from the past 6 months!</p>
             <div class="flex overflow-x-scroll pb-10 hide-scroll-bar">
                 <div id="tracks-list"  class="flex flex-nowrap"></div>
             </div>
@@ -70,22 +76,19 @@
         <!-- display user's reccomended songs -->
         <section id="">
             <h2 class="mb-4 text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-4xl dark:text-white">Your Reccomended Songs</h2>
-           <p class="lg:ml-10">Get Reccomended Songs Based on Listening To 
-                <!-- <select id="artist-reccomendations">
-                    <option selected="true" disabled="disabled">Select an Artist</option>
-                </select>
-                <select id="genre-reccomendations">
-                    <option selected="true" disabled="disabled">Select a Genre</option>
-                </select> -->
-            </p>
-            <!-- <div id="checkbox-options">
-                <input type="checkbox" id="artist-checkbox" name="Artist" value="artist-checkbox">
-                <label for="artist-checkbox">Artist</label>
-                <input type="checkbox" id="genre-checkbox" name="Genre" value="genre-checkbox">
-                <label for="genre-checkbox">Genre</label>
-                <input type="checkbox" id="song-checkbox" name="Songs" value="song-checkbox">
-                <label for="song-checkbox">Song</label>
-            </div> -->
+            <p class="text-xs text-gray-600 mb-5">Search artists, songs, or genres and Spotify will reccomend new music. To populate reccomended songs enter up to 5 artist names, up to 5 song titles, and up to 5 genres!</p>
+            <!--<form ">  > -->
+                <label for="search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                <div class="w-5/6 relative">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                    </div>
+                    <input type="search" id="search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search" required />
+                    <button id="search-button" class="text-white absolute end-2.5 bottom-2.5 bg-green-500 hover:bg-green-600 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                </div>
+            <!--</form>-->
             <div class="flex overflow-x-scroll pb-10 hide-scroll-bar">
                 <div id="reccomendations-list"  class="flex flex-nowrap lg:ml-5 md:ml-5 ml-5"></div>
             </div>
